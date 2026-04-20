@@ -357,8 +357,8 @@ Anbefalt katalogstruktur på server:
 8. [x] List og infinite scroll
 9. [x] Søk-funksjonalitet
 10. [x] Filter og sortering
-11. [ ] Dokumentasjon
+11. [x] Dokumentasjon
 
 ---
 
-**Status:** Implementering ferdig, dokumentasjon gjenstår
+**Status:** Implementering ferdig

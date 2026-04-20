@@ -29,7 +29,7 @@
       value="{{.Timing.GetString "description"}}"
       class="w-full px-2 py-1 text-sm border border-gray-300 rounded"
       hx-patch="/api/timings/{{.Timing.Id}}/edit-description"
-      hx-trigger="keyup changed delay:500ms"
+      hx-trigger="input changed delay:500ms"
       hx-target="#timing-{{.Timing.Id}}"
       hx-swap="outerHTML">
   </div>

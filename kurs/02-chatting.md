@@ -21,6 +21,7 @@ Passer bra til:
   > Jeg skal lage en ny ting, hvordan kan jeg gjøre det?
 
 TODO: Lage oppgaver som illustrerer god bruk av chat.
+TODO: norsk vs engelsk
 
 Neste steg er [03-kontekst.md](03-kontekst.md).
 

@@ -57,7 +57,24 @@ var funcMap = template.FuncMap{
 func initTemplates() {
 	pageTemplates = make(map[string]*template.Template)
 
-	base := "templates/base.html"
+	partialFiles := []string{
+		"templates/timer/timer_controls.html",
+		"templates/timer/timings_list.html",
+		"templates/timer/timing_item.html",
+		"templates/timer/timing_edit.html",
+		"templates/search/search_bar.html",
+		"templates/search/filter_bar.html",
+	}
+
+	// Build a base template set that includes base layout + all partials
+	baseWithPartials := template.Must(
+		template.New("").Funcs(funcMap).ParseFS(
+			templateFS,
+			append([]string{"templates/base.html"}, partialFiles...)...,
+		),
+	)
+
+	// For each page, clone the base+partials and add page-specific template
 	pages := map[string]string{
 		"login":    "templates/auth/login.html",
 		"register": "templates/auth/register.html",
@@ -65,27 +82,17 @@ func initTemplates() {
 	}
 
 	for name, page := range pages {
-		t := template.Must(
-			template.New("").Funcs(funcMap).ParseFS(templateFS, base, page),
-		)
+		t := template.Must(template.Must(baseWithPartials.Clone()).ParseFS(templateFS, page))
 		pageTemplates[name] = t
 	}
 
-	// Partials
-	partials := map[string][]string{
-		"timer_controls": {"templates/timer/timer_controls.html"},
-		"timings_list":   {"templates/timer/timings_list.html", "templates/timer/timing_item.html"},
-		"timing_item":    {"templates/timer/timing_item.html"},
-		"timing_edit":    {"templates/timer/timing_edit.html"},
-		"search_bar":     {"templates/search/search_bar.html"},
-		"filter_bar":     {"templates/search/filter_bar.html"},
-	}
-	for name, files := range partials {
-		t := template.Must(
-			template.New("").Funcs(funcMap).ParseFS(templateFS, files...),
-		)
-		pageTemplates[name] = t
-	}
+	// Partial-only template set for HTMX partial responses
+	partials := template.Must(
+		template.New("").Funcs(funcMap).ParseFS(templateFS, partialFiles...),
+	)
+	pageTemplates["timer_controls"] = partials
+	pageTemplates["timings_list"] = partials
+	pageTemplates["timing_item"] = partials
 }
 
 func renderPage(e *core.RequestEvent, name string, data any) error {
@@ -120,6 +127,19 @@ func renderPartial(e *core.RequestEvent, name, block string, data any) error {
 	e.Response.WriteHeader(http.StatusOK)
 	_, err := buf.WriteTo(e.Response)
 	return err
+}
+
+// renderToString renders a named template block to a string
+func renderToString(name, block string, data any) (string, error) {
+	t, ok := pageTemplates[name]
+	if !ok {
+		return "", fmt.Errorf("template not found: %s", name)
+	}
+	var buf bytes.Buffer
+	if err := t.ExecuteTemplate(&buf, block, data); err != nil {
+		return "", err
+	}
+	return buf.String(), nil
 }
 
 func getStaticFS() fs.FS {

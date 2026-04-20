@@ -103,6 +103,9 @@ func handleTimingAddTag(e *core.RequestEvent) error {
 		}
 	}
 
+	if record.GetBool("isActive") {
+		return renderTimerControls(e, auth, record)
+	}
 	return renderTimingItem(e, record)
 }
 
@@ -134,6 +137,9 @@ func handleTimingRemoveTag(e *core.RequestEvent) error {
 		return e.InternalServerError("Could not remove tag", err)
 	}
 
+	if record.GetBool("isActive") {
+		return renderTimerControls(e, auth, record)
+	}
 	return renderTimingItem(e, record)
 }
 
@@ -174,6 +180,9 @@ func handleTimingEditTime(e *core.RequestEvent) error {
 		return e.InternalServerError("Could not update timing", err)
 	}
 
+	if record.GetBool("isActive") {
+		return renderTimerControls(e, auth, record)
+	}
 	return renderTimingItem(e, record)
 }
 
@@ -197,6 +206,10 @@ func handleTimingEditDescription(e *core.RequestEvent) error {
 		return e.InternalServerError("Could not update description", err)
 	}
 
+	// For active timing description edits (from timer controls), don't replace content
+	if record.GetBool("isActive") {
+		return e.HTML(http.StatusOK, "")
+	}
 	return renderTimingItem(e, record)
 }
 
@@ -310,9 +323,8 @@ func handleTimingsSearch(e *core.RequestEvent) error {
 	})
 }
 
-// Helper: render timer controls partial
+// Helper: render timer controls partial with OOB list update
 func renderTimerControls(e *core.RequestEvent, auth *core.Record, activeTiming *core.Record) error {
-	// Also fetch recent timings for the list update
 	timings, _ := e.App.FindRecordsByFilter(
 		"timings",
 		"userId = {:userId}",
@@ -333,7 +345,25 @@ func renderTimerControls(e *core.RequestEvent, auth *core.Record, activeTiming *
 		"HasMore":      len(timings) >= 10,
 	}
 
-	return renderPartial(e, "timer_controls", "timer_section", data)
+	// Render timer controls
+	controlsHTML, err := renderToString("timer_controls", "timer_section", data)
+	if err != nil {
+		return e.InternalServerError("Template error: "+err.Error(), nil)
+	}
+
+	// Render timings list for OOB swap
+	listHTML, err := renderToString("timings_list", "timings_list", data)
+	if err != nil {
+		return e.InternalServerError("Template error: "+err.Error(), nil)
+	}
+
+	// Combine with OOB swap for the list
+	html := controlsHTML + `<div id="timings-list" hx-swap-oob="innerHTML">` + listHTML + `</div>`
+
+	e.Response.Header().Set("Content-Type", "text/html; charset=utf-8")
+	e.Response.WriteHeader(http.StatusOK)
+	_, werr := e.Response.Write([]byte(html))
+	return werr
 }
 
 // Helper: render single timing item
