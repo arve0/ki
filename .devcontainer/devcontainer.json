@@ -1,0 +1,11 @@
+{
+  "name": "KI for utviklere",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "GitHub.copilot",
+        "GitHub.copilot-chat"
+      ]
+    }
+  }
+}
