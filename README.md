@@ -7,6 +7,12 @@ Jeg har gått gjennom standard løype for å bli kjent med ki-assistert utviklin
 
 Dette er et kurs som går gjennom hva jeg har lært, steg for steg, slik at andre kan komme raskere i gang.
 
+## Hva trenger du for å gjennomføre kurset?
+1. En Github-bruker.
+2. Abonnement for Copilot hos Github.
+
+> Kurset legger opp til å bruke Github 100%, så vi slipper bruke tid på oppsett, men du kan gjennomføre kurset lokalt på din egen PC med eget KI-abonnement også, på egen risiko.
+
 ## Hvem er kurset for?
 ### Utvikler uten erfaring med KI-agenter
 Få en rask innføring i hva som er mulig og hvordan du gjør det.
