@@ -17,3 +17,5 @@ Gjennomfør disse stegene:
 I høyre side, skriv inn denne instruksen:
 
 > lag et sammendrag av kurset
+
+Neste steg er [02-chatting.md](02-chatting.md).
