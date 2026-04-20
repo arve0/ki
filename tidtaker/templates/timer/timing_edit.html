@@ -1,0 +1,37 @@
+{{define "timing_edit"}}
+<div class="bg-white rounded-lg shadow-md p-4 border-2 border-blue-300" id="timing-{{.Timing.Id}}">
+  <h3 class="font-medium text-gray-700 mb-3">Rediger tidsregistrering</h3>
+  <div class="grid grid-cols-2 gap-3 mb-3">
+    <div>
+      <label class="text-xs text-gray-500">Starttid</label>
+      <input type="datetime-local" name="startTime"
+        value="{{localTime (.Timing.GetDateTime "startTime")}}"
+        class="w-full px-2 py-1 text-sm border border-gray-300 rounded"
+        hx-patch="/api/timings/{{.Timing.Id}}/edit-time"
+        hx-trigger="change"
+        hx-target="#timing-{{.Timing.Id}}"
+        hx-swap="outerHTML">
+    </div>
+    <div>
+      <label class="text-xs text-gray-500">Stopptid</label>
+      <input type="datetime-local" name="stopTime"
+        value="{{localTime (.Timing.GetDateTime "stopTime")}}"
+        class="w-full px-2 py-1 text-sm border border-gray-300 rounded"
+        hx-patch="/api/timings/{{.Timing.Id}}/edit-time"
+        hx-trigger="change"
+        hx-target="#timing-{{.Timing.Id}}"
+        hx-swap="outerHTML">
+    </div>
+  </div>
+  <div class="mb-3">
+    <label class="text-xs text-gray-500">Beskrivelse</label>
+    <input type="text" name="description"
+      value="{{.Timing.GetString "description"}}"
+      class="w-full px-2 py-1 text-sm border border-gray-300 rounded"
+      hx-patch="/api/timings/{{.Timing.Id}}/edit-description"
+      hx-trigger="keyup changed delay:500ms"
+      hx-target="#timing-{{.Timing.Id}}"
+      hx-swap="outerHTML">
+  </div>
+</div>
+{{end}}

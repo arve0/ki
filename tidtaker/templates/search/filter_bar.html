@@ -1,0 +1,31 @@
+{{define "filter_bar"}}
+<div class="flex flex-wrap gap-2 items-center">
+  {{if .AllTags}}
+  <span class="text-sm text-gray-500">Tags:</span>
+  {{range .AllTags}}
+  <label class="inline-flex items-center text-sm">
+    <input type="checkbox" name="tags" value="{{.}}"
+      {{if contains $.FilterTags .}}checked{{end}}
+      class="mr-1 rounded"
+      hx-get="/api/timings/search"
+      hx-trigger="change"
+      hx-target="#timings-list"
+      hx-include="[name='q'], [name='tags'], [name='sort']"
+      hx-swap="innerHTML">
+    <span class="bg-gray-100 px-2 py-0.5 rounded">{{.}}</span>
+  </label>
+  {{end}}
+  {{end}}
+  <select name="sort" class="text-sm border border-gray-300 rounded px-2 py-1 ml-auto"
+    hx-get="/api/timings/search"
+    hx-trigger="change"
+    hx-target="#timings-list"
+    hx-include="[name='q'], [name='tags'], [name='sort']"
+    hx-swap="innerHTML">
+    <option value="-startTime">Nyeste først</option>
+    <option value="startTime">Eldste først</option>
+    <option value="description">Beskrivelse A-Å</option>
+    <option value="-description">Beskrivelse Å-A</option>
+  </select>
+</div>
+{{end}}

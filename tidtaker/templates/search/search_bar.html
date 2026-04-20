@@ -1,0 +1,9 @@
+{{define "search_bar"}}
+<input type="text" name="q" placeholder="Søk i beskrivelse, tags, dato..."
+  value="{{.Query}}"
+  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+  hx-get="/api/timings/search"
+  hx-trigger="keyup changed delay:300ms"
+  hx-target="#timings-list"
+  hx-swap="innerHTML">
+{{end}}

@@ -1,0 +1,6 @@
+pb_data/
+pb_test_data/
+dist/
+node_modules/
+test-results/
+playwright-report/

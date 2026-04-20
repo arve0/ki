@@ -1,0 +1,72 @@
+{{define "title"}}Timer{{end}}
+{{define "content"}}
+<div class="max-w-2xl mx-auto">
+  <!-- Header -->
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold text-gray-800">Tidtaker</h1>
+    <form method="POST" action="/logout">
+      <button type="submit" class="text-sm text-gray-500 hover:text-gray-700">Logg ut</button>
+    </form>
+  </div>
+
+  <!-- Timer controls -->
+  <div id="timer-section">
+    {{template "timer_section" .}}
+  </div>
+
+  <!-- Search and filter -->
+  <div class="bg-white rounded-lg shadow-md p-4 mb-6">
+    <div class="mb-3">
+      <input type="text" id="search-input" name="q" placeholder="Søk i beskrivelse, tags, dato..."
+        value="{{.Query}}"
+        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        hx-get="/api/timings/search"
+        hx-trigger="keyup changed delay:300ms"
+        hx-target="#timings-list"
+        hx-include="#filter-form"
+        hx-swap="innerHTML">
+    </div>
+    <form id="filter-form" class="flex flex-wrap gap-2 items-center">
+      <input type="hidden" name="q" id="search-q">
+      {{if .AllTags}}
+      <span class="text-sm text-gray-500 mr-1">Tags:</span>
+      {{range .AllTags}}
+      <label class="inline-flex items-center text-sm">
+        <input type="checkbox" name="tags" value="{{.}}"
+          class="mr-1 rounded"
+          hx-get="/api/timings/search"
+          hx-trigger="change"
+          hx-target="#timings-list"
+          hx-include="#search-input, #filter-form"
+          hx-swap="innerHTML">
+        <span class="bg-gray-100 px-2 py-0.5 rounded">{{.}}</span>
+      </label>
+      {{end}}
+      {{end}}
+      <select name="sort" class="text-sm border border-gray-300 rounded px-2 py-1 ml-auto"
+        hx-get="/api/timings/search"
+        hx-trigger="change"
+        hx-target="#timings-list"
+        hx-include="#search-input, #filter-form"
+        hx-swap="innerHTML">
+        <option value="-startTime" {{if eq .Sort "-startTime"}}selected{{end}}>Nyeste først</option>
+        <option value="startTime" {{if eq .Sort "startTime"}}selected{{end}}>Eldste først</option>
+        <option value="description" {{if eq .Sort "description"}}selected{{end}}>Beskrivelse A-Å</option>
+        <option value="-description" {{if eq .Sort "-description"}}selected{{end}}>Beskrivelse Å-A</option>
+      </select>
+    </form>
+  </div>
+
+  <!-- Timings list -->
+  <div id="timings-list">
+    {{template "timings_list" .}}
+  </div>
+</div>
+
+<script>
+  // Sync search input to hidden field for filter form
+  document.getElementById('search-input')?.addEventListener('input', function() {
+    document.getElementById('search-q').value = this.value;
+  });
+</script>
+{{end}}

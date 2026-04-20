@@ -347,18 +347,18 @@ Anbefalt katalogstruktur på server:
 
 ## 11. Implementerings-rekkefølge
 
-1. [ ] Setup - PocketBase og HTMX prosjekt
-2. [ ] Database schema - lag collections
-3. [ ] Register-side
-4. [ ] Login-side
-5. [ ] Timer-side med start/stopp
-6. [ ] Beskrivelse og tags
-7. [ ] Edit tider
-8. [ ] List og infinite scroll
-9. [ ] Søk-funksjonalitet
-10. [ ] Filter og sortering
+1. [x] Setup - PocketBase og HTMX prosjekt
+2. [x] Database schema - lag collections
+3. [x] Register-side
+4. [x] Login-side
+5. [x] Timer-side med start/stopp
+6. [x] Beskrivelse og tags
+7. [x] Edit tider
+8. [x] List og infinite scroll
+9. [x] Søk-funksjonalitet
+10. [x] Filter og sortering
 11. [ ] Dokumentasjon
 
 ---
 
-**Status:** Planlegging ferdig, klar for implementering
+**Status:** Implementering ferdig, dokumentasjon gjenstår
