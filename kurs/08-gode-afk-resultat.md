@@ -1,1 +1,0 @@
-# Gode AFK resultat

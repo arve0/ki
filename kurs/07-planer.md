@@ -69,4 +69,9 @@ git commit -m "flere detaljer for eksport/import"
 git push
 ```
 
-Neste steg er [08-gode-afk-resultat.md](08-gode-afk-resultat.md).
+## Oppgave: Start implementasjon av planen
+Åpne en ny chat og start implementasjonen. Du velger selv om du ønsker å fortsette i OpenCode eller om du går tilbake til Copilot Chat. Du kan også teste Copilot CLI i terminal ved å starte `copilot`. Dersom du bruker Copilot Chat i VSCode, sett variant til `Copilot CLI` (nederst til venstre i chat, endre fra `Local`).
+
+> @eksport.md implementer funksjonaliteten beskrevet
+
+Neste steg er [08-gode-afk-resultat.md](08-veien-videre.md).
