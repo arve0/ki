@@ -21,7 +21,7 @@ curl --location https://raw.githubusercontent.com/mattpocock/skills/refs/heads/m
 
 Prøv nå denne instruksen:
 
-> /grill-me Jeg ønsker å benytte tidtakingene til å automatisk fylle inn mine timelister i en webapplikasjon. Jeg ønsker at timene skal rundes til nærmeste halvtime. Nedlasting av tidtaking skal laste ned en måned. Jeg ønsker å lage en plugin for nettleser, slik at jeg kan logge inn i timeføringssystemet og dra over filen jeg lastet ned. Kan du hjelpe meg å utforske hvordan dette kan løses?
+> /grill-me Jeg ønsker å benytte tidtakingene til å automatisk fylle inn mine timelister i en webapplikasjon. Jeg ønsker at timene skal rundes til nærmeste halvtime. Nedlasting av tidtaking skal laste ned en måned. Jeg ønsker enten en plugin for nettleser eller et script for playwright. Det skal være mulig for meg å logge inn i timeføringssystemet selv, og deretter skal programmet gjøre timeføringen. For plugin kan timeføringen trigges av at jeg drar over filen jeg lastet ned. For playwright kan du foreslå hvordan en gir filen. Beskriv fordeler og ulemper med plugin vs playwright og hjelp meg til å utforske hvordan dette kan løses.
 
 Merk: _/grill-me_ aktiverer skillen. Aktivering kan også skje ved at beskrivelsen til skill inneholder "bruk denne instruksen hver gang du lager git commits" eller at din instruks er "bruk grill-me skill".
 
