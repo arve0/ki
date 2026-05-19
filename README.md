@@ -28,38 +28,50 @@ Følg anvisningene og erfar hvordan utvikling kan gjøres med vanlig norsk, uten
 
 ### Innhold
 
-#### Del 1 – Chat som verktøy
-Start her. Chat er ofte raskere enn å google. Det er fordi chaten har fokus på din kontekst, versus å lete etter noen som har hatt tilsvarende problem og oversette til din egen kontekst.
-- [ ] Finne detaljert svar på noe en ikke selv vet.
-- [ ] Hva het den annotasjonen igjen i kubernetes / openshift? – bruk KI som oppslagsverk
+#### Del 1 – Oppsett og kom i gang
+Sett opp GitHub Codespaces og koble til Copilot eller OpenRouter.
+- Opprett en fork og åpne kodebasen i nettleseren med Codespaces
+- Koble til Copilot (Pro/Pro+/Enterprise) eller OpenRouter med API-nøkkel
+- Sjekk at chat fungerer ved å lage et sammendrag av kurset
 
-#### Del 2 – Kodeforståelse
-Før du endrer kode, er det enklere dersom du forstår koden.
-- [ ] Forstå kode – få forklart ukjent eller gammel legacy kode
+#### Del 2 – Chat som verktøy
+Chat er raskere enn å google fordi den forstår din kontekst.
+- Spør om ukjent teknologi og kodebasen med naturlig norsk
+- Gjøre små kontekstsensitive endringer i koden
+- Utforske og forstå eksempelapplikasjonen _tidtaker_
 
-#### Del 3 – Feilsøking
-Du har en feil. KI er veldig god på å forklare feil fra stack-traces.
-- [ ] Finne feil i koden basert på stack trace – gi agenten feilmeldingen, få løsningen
+#### Del 3 – Kontekst
+Dårlige svar skyldes ofte manglende kontekst – her lærer du å styre modellen.
+- Legg til filer som kontekst for mer presise svar
+- Marker enkeltlinjer for å holde modellen fokusert
+- Hent oppdatert informasjon fra internett for å unngå utdaterte svar
 
-#### Del 4 – Kodeendringer og migrering
-KI kan gjøre kjedelige omskrivingsoppgaver.
-- [ ] Søk og erstatt, ikke rett frem – kontekstsensitive endringer som regex ikke klarer
-- [ ] Oversette fra js til ts – la agenten ta den første runden
-- [ ] Lage typer basert på annet språk – generer TypeScript-typer fra Java, OpenAPI, JSON o.l.
+#### Del 4 – Agenter
+Agenter kan gjøre mer enn å svare – de kan endre koden din.
+- La agenten endre implementasjon og kjøre eksisterende tester
+- Gi agenten en full arbeidsliste i én instruks (TDD, dokumentasjon, sikkerhetsvurdering, commit)
+- Bruk `AGENTS.md` for å unngå å gjenta de samme instruksene om og om igjen
 
-#### Del 5 – Agenter og automatisering
-Nå som du kjenner grunnleggende chat, er det tid for agenter som utfører oppgaver.
-- [ ] To minutt chat vs to minutt spec – når lønner det seg å skrive en spec fremfor å bare chatte?
-- [ ] Gi agenten en måte å verifisere arbeidet – agenten bør kunne sjekke sitt eget resultat
-- [ ] Automate the boring parts – la agenten ta seg av repetitive utvikleroppgaver
-- [ ] Playwright? – la agenten skrive og kjøre nettlesertester
+#### Del 5 – Feilsøking
+KI er svært god på feilmeldinger og stack traces.
+- Gi agenten feilbeskrivelsen og la den finne og fikse årsaken
 
-#### Del 6 – Utforskning og sparring
-KI er god å tenke høyt med. Bruk den som en faglig sparringspartner.
-- [ ] Sparringspartner for ny oppgave – diskuter løsningsvalg før du starter
-- [ ] Finne verktøy for profilering, benchmarking – hvilke verktøy finnes, og hvilket passer?
-- [ ] Utforske nye språk, skrive hello world i cobol – lær et ukjent språk med KI som guide
+#### Del 6 – Utforskning og skills
+Bruk KI som sparringspartner og utvid agenten med gjenbrukbare skills.
+- La agenten utforske løsninger du ikke hadde tenkt på selv
+- Installer og bruk _grill-me_ skill for strukturert problemutforskning
+- Legg til HTML-elementer fra nettleseren som kontekst
+- Lag og del egne skills for gjenbruk på tvers av prosjekter
 
-#### Del 7 – Sikkerhet
-Avansert bruk: KI kan både finne og utnytte sikkerhetshull – forstå begge sider.
-- [ ] Finne sikkerhetshull og bryte seg gjennom – etisk hacking med KI som verktøy
+#### Del 7 – Planer
+En god plan lar agenten jobbe selvstendig over lengre tid.
+- Lag et detaljert plandokument agenten kan jobbe fra uten avbrudd
+- Bruk Playwright MCP-server for å styre nettleseren med naturlig språk
+- Bruk OpenCode CLI som alternativ til Copilot Chat i terminalen
+- La agenten implementere planen fra start til slutt
+
+#### Del 8 – Gode AFK-resultat
+Optimaliser slik at resultatet er bra når agenten er ferdig.
+- Bruk CLI-agenter som får jobbe uavbrutt
+- Gi agenten instrukser for å verifisere sitt eget arbeid
+- Bruk `--yolo` i en sandkasse for å unngå bekreftelsesdialog
