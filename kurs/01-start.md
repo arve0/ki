@@ -19,7 +19,7 @@ Du kan velge å fortsette i nettleser, eller du kan koble lokal instans av VSCod
 1. Trykk helt nede i venstre hjørne der det står _Codespaces: et navn_
 2. Velg _Open in VS Code Desktop_ i dialogen som kommer opp.
 
-![åpner i lokal editor](vscode-dekstop.png)
+![åpner i lokal editor](vscode-desktop.png)
 
 
 ## Test at Copilot-chaten fungerer
