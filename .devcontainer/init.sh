@@ -66,13 +66,13 @@ fi
 
 echo "⏳ Bygger tidtaker og installerer avhengigheter..."
 pushd "$root/tidtaker" > /dev/null
-if ! go build -o tidtaker . &> "$root/.devcontainer/tidtaker-build-logg"; then
+if ! go build -o tidtaker . 2>&1 | tee "$root/.devcontainer/tidtaker-build-logg"; then
   echo '❌  Feil ved bygging av tidtaker. Logg i .devcontainer/tidtaker-build-logg'
   failure=true
 else
   echo '✅ tidtaker er bygget.'
 fi
-if ! npm install &> "$root/.devcontainer/tidtaker-npm-logg"; then
+if ! npm install 2>&1 | tee "$root/.devcontainer/tidtaker-npm-logg"; then
   echo '❌  Feil ved npm install i tidtaker. Logg i .devcontainer/tidtaker-npm-logg'
   failure=true
 else
