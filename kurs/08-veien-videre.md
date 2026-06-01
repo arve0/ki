@@ -24,7 +24,7 @@ Akkurat her er det vanskelig på grunn av at jeg ikke ønsker å dele innlogging
 
 > kan du lage meg et playwright-script jeg kan kjøre for å holde sesjonen i auth.json aktivt, slik at jeg ikke blir logget ut?
 
-Dette er hva jeg bruker mest hjernekapasitet på i mitt arbeid nå. Hvordan kan jeg hjelpe agenten til å verifisere sitt eget arbeid?
+Å finne ut hvordan agenten skal klare å verifisere sitt arbeid er hva jeg bruker mest hjernekapasitet på i mitt arbeid nå. Hvilke ting trenger den tilgang til? Hvordan kan jeg gjøre det sikkert? Hvordan kan jeg unngå at agenten overser instruks om verifikasjon?
 
 
 # Jobbe med flere agenter samtidig
