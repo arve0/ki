@@ -38,6 +38,12 @@ Siden vi kjører oppgavene i Codespaces som er en VM på Github, må vi logge p�
 
 Merk: For å gjennomføre timeføringen kunne vi benyttet denne metoden for å finne riktige ting å trykke på, men vi skal heller la agenten finne ut av det selv.
 
+Tips: For å holde sesjonen aktiv, slik at du ikke logges ut, kan du ha åpen en sesjon med playwright lokalt:
+
+```shell
+npx playwright codegen --save-storage=auth.json --load-storage=auth.json
+```
+
 ## Oppgave: Koble OpenCode til AI-leverandør
 1. I Codespaces, åpne terminalen
 2. Start `opencode`
