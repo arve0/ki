@@ -160,10 +160,19 @@ Det er mye rimeligere enn et menneske, men helt klart en forenklet model. Eksemp
 
 
 # Kjøre modeller lokalt
+Hvis du har en ny macbook med mye RAM, er det relativt enkelt å kjøre en modell lokalt. Modellene er ikke like gode som de du kan kjøpe på abonnement, men de klarer mye som en skulle tro en måtte ha en leid modell på.
 
+Du kan prøve å starte GPT-OSS som fungerer til mye:
+```shell
+brew install llama.cpp
+llama-server -hf ggml-org/gpt-oss-20b-GGUF --jinja -c 0 --host 127.0.0.1 --port 8080
+```
 
-# Rammeverk
-https://github.com/iyaki/ralphex
+Se om den klarer å trekke ut informasjon fra JSON:
+
+> Se innlimt JSON. Hent ut x y og z. La output være strukturert JSON på formen {"x": "...", "y": "...", "z": "..."}
+
+Advarsel: Å gjøre seg kjent med de tekniske begrepene for KI-modeller er et kaninhull. Antall parametre, kvantifisert, mode of expert, gguf, osv. Her kan du synke mye tid. Tips, bruk gemini til å forklare hva de ulike tingene er.
 
 
 # Hva er gode tester for en agent?
