@@ -11,6 +11,8 @@ Du så kanskje at KI-modellen leste README.md-filen til tidtaker når du ba om i
 
 > Hva slags templating er dette? Gi meg en konsis instruks for de vanligste tingene en kan gjøre med templatingen. Skriv svaret her og samtidig til tidtaker/templating.md.
 
+Godkjenn kommandoer agenten ønsker å kjøre.
+
 Ettersom agenten skrev til en fil vil chaten vise dette og be om godkjenning. Trykk på _Keep_.
 
 ## Oppgave: Legg til deler av fil
