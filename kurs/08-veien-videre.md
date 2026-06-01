@@ -71,6 +71,7 @@ Dette er de tre vanligste variantene av at KI-modellen feiler på noe vis:
 1. Den gjetter og gjør dårlig arbeid.
 2. Den kjører seg fast og kommer ikke videre.
 3. Resultatet virker ikke.
+4. Agenten kjørte ikke testene.
 
 ## Dårlige antakelser og dårlige utfall
 Antakelser og overraskende løsninger er vanlig når instruksen er for dårlig. Går det helt i feil retning er det vanskelig å korrigere, fordi konteksten til forespørselen fylles med det dårlige forslaget. Eksempelvis fungerer det sjeldent å korrigere etterpå, altså dette fungerer ikke:
@@ -102,6 +103,12 @@ Sammenligne disse:
 > Implementer funksjonaliteten. Når du er ferdig skal du kjøre alle testene. Kjør opp server og sjekk at endepunkt /a nå inneholder teksten "ny funksjonalitet", først da er du ferdig.
 
 > Start ved å skrive en test som sjekker at endepunkt /a inneholder teksten "ny funksjonalitet". Sørg for at testen feiler (TDD rød). Implementer funksjonaliteten. Kjør testen på ny. Sørg for at testen er OK (TDD grønn). Verifiser at alle andre tester også kjører og er grønn.
+
+## Agenten kjørte ikke testene
+En beskrivelse i AGENTS.md eller i intruksen fungerer ikke alltid. Agenten glemmer av og hopper over.
+Da kan [hooks](https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/use-hooks) være løsningen, der en kan tvinge agenten til å kjøre en bestemt kommando et bestemt sted i loopen.
+
+[Her er en god introduksjonsvideo for Copilot](https://www.youtube.com/watch?v=03CfGf9iw_U).
 
 
 # Hva er gode tester for en agent?
@@ -226,11 +233,9 @@ Prøv disse tingene:
   > lag en pr med gh kommandolinje. tittel på pr skal inneholde saksnummeret fra jira, beskrivelsen skal inneholde hva som er gjort og hvorfor. det skal være en liste med commits i kronologisk rekkefølge, prefikset med kort sha1, slik at det kan trykkes på i github, en forklaring på hensikten/hvorfor endringen gjøres, samt en notis om hvordan det kan testes av den som skal gjøre review. la output være en gh-kommando jeg kan kjøre selv
 
 
-# Ingen generert dokumentasjon
-
-
-# Remote tilgang
-
-
 # Tips fra folk på internett
-https://www.aihero.dev/ways-ai-coding-has-rewired-my-brain
+https://www.aihero.dev/ er bra. Vil Prøve å selge deg et kurs, men har også mye informasjon gratis, slik som ["hvordan KI-koding har endret hjernen min"]([ways-ai-coding-has-rewired-my-brain](https://www.aihero.dev/ways-ai-coding-has-rewired-my-brain)).
+
+[Alex Ziskind](https://www.youtube.com/@AZisk) har mye bra om hvordan en kjører KI-modeller lokalt, slik som [local AI just leveled up](https://www.youtube.com/watch?v=2t9XrPcAiHg).
+
+[Burke Holland](https://www.youtube.com/@BurkeHolland) har mye bra om Githubs produkter, slik som [intro til Copilot hooks](https://www.youtube.com/watch?v=03CfGf9iw_U).
