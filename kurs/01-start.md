@@ -10,7 +10,7 @@ Gjennomfør disse stegene:
    ![Oppretter en fork av dette repoet](fork.png)
 3. Trykk på _Code_ → _Codespaces_ → _Create codespace on main_
    ![Lager en Codespace for repoet på ditt eget område](codespaces.png)
-4. Åpne opprettet codespace:
+4. Opprettet codespace åpner i nettleser:
    ![Codespace åpent i nettleser](codespace.png)
 5. Trykk helt nede i venstre hjørne der det står _Codespaces: et navn_
 6. Velg _Open in VS Code Desktop_ i dialogen som kommer opp.
