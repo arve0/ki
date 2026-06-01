@@ -6,7 +6,7 @@ failure=false
 
 if [[ ! -f "$root/.devcontainer/copilot-ok" ]]; then
   echo '🔍 Sjekker GitHub Copilot-tilgang...'
-  if copilot --prompt 'hva er 1+1?' --model claude-sonnet-4.6 --effort none --disable-builtin-mcps --no-custom-instructions &> "$root/.devcontainer/copilot-logg" \
+  if copilot --prompt 'hva er 1+1?' --model claude-sonnet-4.6 --disable-builtin-mcps --no-custom-instructions &> "$root/.devcontainer/copilot-logg" \
     && ! grep -i -E '(error|fail)' "$root/.devcontainer/copilot-logg" &> /dev/null \
     && grep 2 "$root/.devcontainer/copilot-logg" &> /dev/null
   then
