@@ -1,9 +1,10 @@
 # Agenter
 Du har allerede fått en forsmak på agenter. I de forrige oppgavene ba vi agenten om å lagre resultatet også til en fil. En kan skru av "agent"-modusen ved å velge _Ask_ på knappen til venstre for modellen, men typisk vil ikke agenten gjøre noe du ikke ber om. I verste tilfelle kan en alltids angre endringene ved å trykke på knappen _Undo_.
 
-## Oppgave: Endre tidtaker-applikasjonen
-Du har kanskje startet tidtaker-applikasjonen, opprettet en bruker og registrert en tidtaking? Hvis ikke, gjør det nå.
+## Oppgave: Starte tidtaker-applikasjonen
+Bruk [beskrivelsen i tidtaker.md](../tidtaker.md) for å starte tidtaker-tjenesten. Åpne tidtaker-applikasjonen.
 
+## Oppgave: Endre tidtaker-applikasjonen
 Legg merke til at datoen skrives som "21.04.2026".
 
 Prøv denne instruksen:
