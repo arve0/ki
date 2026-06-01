@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kurs Scoreboard</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0d0d1a;
+      color: #e0e0ff;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: clamp(0.8rem, 2vw, 1.4rem);
+      min-height: 100vh;
+      padding: 1.5rem;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: clamp(1.2rem, 3vw, 2rem);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #a0a0ff;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 0 12px #6060ff88;
+    }
+
+    #board {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: #1a1a2e;
+      border: 2px solid #2a2a4e;
+      border-radius: 0.75rem;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      position: relative;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      border-color: #5050aa;
+    }
+
+    .card.celebrate {
+      animation: cardCelebrate 1.2s ease-out;
+    }
+
+    @keyframes cardCelebrate {
+      0%   { border-color: #ffff00; box-shadow: 0 0 0 4px #ffff0066, 0 0 30px #ffff0044; transform: scale(1.05); }
+      30%  { border-color: #00ffaa; box-shadow: 0 0 0 6px #00ffaa55, 0 0 40px #00ffaa44; transform: scale(1.08); }
+      60%  { border-color: #ff80ff; box-shadow: 0 0 0 4px #ff80ff44, 0 0 25px #ff80ff33; transform: scale(1.03); }
+      100% { border-color: #2a2a4e; box-shadow: none; transform: scale(1); }
+    }
+
+    .repo-link {
+      display: contents;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .avatar {
+      width: 4rem;
+      height: 4rem;
+      border-radius: 50%;
+      border: 2px solid #4040aa;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .card:hover .avatar {
+      border-color: #8080ff;
+      transform: scale(1.05);
+    }
+
+    .username {
+      font-weight: 600;
+      font-size: 1em;
+      text-align: center;
+      word-break: break-all;
+      color: #c0c0ff;
+      text-decoration: none;
+    }
+
+    .username:hover {
+      text-decoration: underline;
+      color: #e0e0ff;
+    }
+
+    .modules {
+      display: flex;
+      gap: 0.3rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .badge {
+      font-size: 1.3em;
+      line-height: 1;
+      transition: transform 0.2s;
+    }
+
+    .badge.done {
+      filter: drop-shadow(0 0 4px #80ff80);
+    }
+
+    .badge.pulse {
+      animation: badgePulse 0.9s ease-out;
+    }
+
+    @keyframes badgePulse {
+      0%   { transform: scale(2.2) rotate(-10deg); filter: drop-shadow(0 0 16px #ffff00); }
+      40%  { transform: scale(1.5) rotate(5deg);  filter: drop-shadow(0 0 8px #80ff80); }
+      100% { transform: scale(1)   rotate(0deg);  filter: drop-shadow(0 0 4px #80ff80); }
+    }
+
+    .last-checked {
+      font-size: 0.65em;
+      color: #505070;
+      text-align: center;
+    }
+
+    /* Exclude button */
+    .exclude-btn {
+      position: absolute;
+      top: 0.4rem;
+      right: 0.5rem;
+      background: none;
+      border: none;
+      color: #404060;
+      font-size: 0.85em;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s, color 0.2s;
+      line-height: 1;
+      padding: 0.1em 0.2em;
+    }
+
+    .card:hover .exclude-btn {
+      opacity: 1;
+    }
+
+    .exclude-btn:hover {
+      color: #ff6060;
+    }
+
+    /* Excluded panel */
+    #excluded-panel {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.75em;
+      color: #505070;
+      min-height: 1.5em;
+    }
+
+    #excluded-panel span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3em;
+      background: #1a1a2e;
+      border: 1px solid #3a2a2e;
+      border-radius: 1rem;
+      padding: 0.2em 0.6em;
+      margin: 0.2em;
+      color: #806060;
+    }
+
+    #excluded-panel button {
+      background: none;
+      border: none;
+      color: #806060;
+      cursor: pointer;
+      padding: 0;
+      font-size: 1em;
+    }
+
+    #excluded-panel button:hover {
+      color: #ff9090;
+    }
+
+    #status {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+      font-size: 0.75em;
+      color: #404060;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎮 Scoreboard</h1>
+  <div id="board"></div>
+  <div id="excluded-panel"></div>
+  <div id="status">
+    <button onclick="try{playPowerUp()}catch(e){alert(e)}" style="background:#1a1a2e;border:1px solid #3a3a6e;color:#8080cc;border-radius:0.4rem;padding:0.2em 0.8em;cursor:pointer;font-size:0.85em">🔊 Test lyd</button>
+    <span id="status-text">Kobler til…</span>
+  </div>
+
+  <script src="sounds.js"></script>
+  <script>
+    'use strict';
+
+    const MODULES = [1, 2, 3, 4, 5, 6, 7];
+    const MODULE_LABELS = {
+      1: '01 Start',
+      2: '02 Chat',
+      3: '03 Kontekst',
+      4: '04 Agenter',
+      5: '05 Feilsøking',
+      6: '06 Utforskning',
+      7: '07 Planer',
+    };
+
+    let participants = {};
+    let excluded = [];
+
+    function renderExcludedPanel() {
+      const panel = document.getElementById('excluded-panel');
+      if (excluded.length === 0) { panel.innerHTML = ''; return; }
+      panel.innerHTML = 'Ekskludert: ' + excluded.map(login =>
+        `<span>${login} <button onclick="unexclude('${login}')" title="Gjenopprett">↩</button></span>`
+      ).join('');
+    }
+
+    async function excludeUser(login) {
+      await fetch('/exclude', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ login }) });
+      // SSE 'excluded' event handles UI update
+    }
+
+    async function unexclude(login) {
+      await fetch(`/exclude/${login}`, { method: 'DELETE' });
+      // SSE 'unexcluded' event handles UI update
+    }
+
+    function renderCard(p) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.id = `card-${p.login}`;
+
+      const excludeBtn = document.createElement('button');
+      excludeBtn.className = 'exclude-btn';
+      excludeBtn.title = `Ekskluder ${p.login}`;
+      excludeBtn.textContent = '✕';
+      excludeBtn.addEventListener('click', e => { e.preventDefault(); excludeUser(p.login); });
+      card.appendChild(excludeBtn);
+
+      const repoUrl = `https://github.com/${p.login}/ki`;
+
+      const avatarLink = document.createElement('a');
+      avatarLink.href = repoUrl;
+      avatarLink.target = '_blank';
+      avatarLink.rel = 'noopener noreferrer';
+      avatarLink.className = 'repo-link';
+
+      const img = document.createElement('img');
+      img.className = 'avatar';
+      img.src = p.avatarUrl;
+      img.alt = p.login;
+      avatarLink.appendChild(img);
+      card.appendChild(avatarLink);
+
+      const nameLink = document.createElement('a');
+      nameLink.className = 'username';
+      nameLink.href = repoUrl;
+      nameLink.target = '_blank';
+      nameLink.rel = 'noopener noreferrer';
+      nameLink.textContent = p.login;
+      card.appendChild(nameLink);
+
+      const mods = document.createElement('div');
+      mods.className = 'modules';
+      mods.id = `modules-${p.login}`;
+      card.appendChild(mods);
+
+      const lc = document.createElement('div');
+      lc.className = 'last-checked';
+      lc.id = `lc-${p.login}`;
+      card.appendChild(lc);
+
+      return card;
+    }
+
+    function updateCard(p) {
+      let card = document.getElementById(`card-${p.login}`);
+      if (!card) {
+        card = renderCard(p);
+        document.getElementById('board').appendChild(card);
+      }
+
+      const mods = document.getElementById(`modules-${p.login}`);
+      mods.innerHTML = '';
+
+      for (const m of MODULES) {
+        const done = p.completedModules.includes(m);
+        const span = document.createElement('span');
+        span.className = 'badge' + (done ? ' done' : '');
+        span.title = MODULE_LABELS[m];
+        span.dataset.module = m;
+        span.textContent = done ? '⭐' : '▪️';
+        mods.appendChild(span);
+      }
+
+      const lc = document.getElementById(`lc-${p.login}`);
+      if (p.lastChecked) {
+        lc.textContent = new Date(p.lastChecked).toLocaleTimeString('no-NO');
+      }
+    }
+
+    function flashCard(login) {
+      const card = document.getElementById(`card-${login}`);
+      if (!card) return;
+      card.classList.remove('celebrate');
+      void card.offsetWidth;
+      card.classList.add('celebrate');
+      setTimeout(() => card.classList.remove('celebrate'), 1300);
+    }
+
+    function flashBadge(login, module) {
+      const mods = document.getElementById(`modules-${login}`);
+      if (!mods) return;
+      for (const span of mods.querySelectorAll('.badge')) {
+        if (Number(span.dataset.module) === module) {
+          span.classList.remove('pulse');
+          void span.offsetWidth;
+          span.classList.add('pulse');
+          setTimeout(() => span.classList.remove('pulse'), 950);
+          break;
+        }
+      }
+    }
+
+    async function loadState() {
+      const res = await fetch('/state');
+      const data = await res.json();
+      participants = data.participants;
+      excluded = data.excluded || [];
+      for (const p of Object.values(participants)) {
+        updateCard(p);
+      }
+      renderExcludedPanel();
+    }
+
+    function connectSSE() {
+      const es = new EventSource('/events');
+
+      es.addEventListener('progress', e => {
+        const { login, module } = JSON.parse(e.data);
+        if (participants[login]) {
+          if (!participants[login].completedModules.includes(module)) {
+            participants[login].completedModules.push(module);
+          }
+          updateCard(participants[login]);
+          flashBadge(login, module);
+          flashCard(login);
+          try { playPowerUp(); } catch {}
+        }
+      });
+
+      es.addEventListener('excluded', e => {
+        const { login } = JSON.parse(e.data);
+        if (!excluded.includes(login)) excluded.push(login);
+        document.getElementById(`card-${login}`)?.remove();
+        delete participants[login];
+        renderExcludedPanel();
+      });
+
+      es.addEventListener('unexcluded', e => {
+        const { login } = JSON.parse(e.data);
+        excluded = excluded.filter(u => u !== login);
+        renderExcludedPanel();
+        loadState(); // re-fetch to restore participant card
+      });
+
+      es.addEventListener('error', () => {
+        document.getElementById('status-text').textContent = 'Tilkobling tapt – prøver igjen…';
+        setTimeout(connectSSE, 3000);
+        es.close();
+      });
+
+      es.addEventListener('open', () => {
+        document.getElementById('status-text').textContent = 'Tilkoblet ✓';
+      });
+    }
+
+    loadState().then(connectSSE).catch(err => {
+      document.getElementById('status-text').textContent = `Feil: ${err.message}`;
+    });
+  </script>
+</body>
+</html>

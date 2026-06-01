@@ -5,3 +5,4 @@ node_modules
 auth.json
 .playwright-mcp
 /tidtaker/tidtaker
+/scoreboard/worktrees/

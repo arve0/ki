@@ -23,6 +23,7 @@ scoreboard/
 - `GET /state` returnerer nåværende tilstand som JSON (for initial load)
 - Én enkelt loop hvert **10. sekund**: hent forks → sync worktrees → sjekk tilstand → send SSE ved endring
 - Når en deltaker fullfører nytt steg: sender SSE-event `progress` med deltaker og steg
+- Det skal være mulig å eksludere brukernavn, i toppen av server.js kan listen med eksluderte brukernavn defineres.
 
 ### public/index.html
 - Henter initial tilstand fra `/state`, deretter lytter på `/events` (SSE)
