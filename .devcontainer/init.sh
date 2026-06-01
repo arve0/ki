@@ -47,6 +47,22 @@ else
   failure=true
 fi
 
+echo "⏳ Bygger tidtaker og installerer avhengigheter..."
+pushd "$root/tidtaker" > /dev/null
+if ! go build -o tidtaker . &> "$root/.devcontainer/tidtaker-build-logg"; then
+  echo '❌  Feil ved bygging av tidtaker. Logg i .devcontainer/tidtaker-build-logg'
+  failure=true
+else
+  echo '✅ tidtaker er bygget.'
+fi
+if ! npm install &> "$root/.devcontainer/tidtaker-npm-logg"; then
+  echo '❌  Feil ved npm install i tidtaker. Logg i .devcontainer/tidtaker-npm-logg'
+  failure=true
+else
+  echo '✅ tidtaker avhengigheter er installert.'
+fi
+popd > /dev/null
+
 if [[ "$failure" == true ]]; then
   echo '⚠️  init.sh feilet.'
   exit 1

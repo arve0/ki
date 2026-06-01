@@ -46,9 +46,12 @@ npx playwright codegen --save-storage=auth.json --load-storage=auth.json
 
 ## Oppgave: Koble OpenCode til AI-leverandør
 1. I Codespaces, åpne terminalen
-2. Start `opencode`
-3. Skriv `/connect` og trykk enter
-4. Følg anvisningen for å logge på Github eller OpenRouter
+2. Gå til tidtaker-mappen: `cd tidtaker`
+3. Start `opencode`
+4. Skriv `/connect` og trykk enter
+5. Følg anvisningen for å logge på Github eller OpenRouter
+6. Skriv `/mcp`
+7. Verifiser at
 
 ## Oppgave: Verifisere at Playwright fungerer fra OpenCode i Codespaces
 I OpenCode, skriv denne prompten:
