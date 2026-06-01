@@ -51,8 +51,8 @@ npx playwright codegen --save-storage=auth.json --load-storage=auth.json
 3. Start `opencode`
 4. Skriv `/connect` og trykk enter
 5. Følg anvisningen for å logge på Github eller OpenRouter
-6. Skriv `/mcp`
-7. Verifiser at
+6. Skriv `/mcps`
+7. Verifiser at den viser `playwright connected ✔️ connected`
 
 ## Oppgave: Verifisere at Playwright fungerer fra OpenCode i Codespaces
 I OpenCode, skriv denne prompten:
