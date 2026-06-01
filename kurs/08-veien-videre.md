@@ -184,6 +184,16 @@ Advarsel: Å gjøre seg kjent med de tekniske begrepene for KI-modeller er et ka
 
 
 # Skal vi bry oss om kodekvalitet nå?
+Ja, men ikke på samme måte som før. Detaljer er mindre viktige nå, mener jeg, men oppførsel er fortsatt like viktig. Uten agenter var det ikke uvanlig at en endring på et sted ga en stor og alvorlig feil et helt annet sted. Ofte et signal på dårlig kodekvalitet. Sannsynligheten for slike feil går ikke ned med agenter.
+
+Naivt kan en tenke seg at utfallet er:
+```
+sannsynlighet * antall endringer = antall feil
+```
+
+Gitt at sannsynligheten er den samme eller omtrent lik, med agenter er `antall endringer` økende, derfor må en gjøre noe med `sannsynlighet`. Hvordan gjør en det?
+
+Gode abstraksjoner (interfaces, modularitet). Bra testing (ende til ende, beskriver hensikt). Solid rekkverk (blue green deployments, automatiserte reviews). Du skjønner tegningen.
 
 
 # Diktering
