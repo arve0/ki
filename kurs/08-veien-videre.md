@@ -207,6 +207,11 @@ På MacOS er diktering innebygd, du finner det under _Systeminnstillinger_, søk
 
 
 # Ulike typer modeller
+Kurset har bruk modellen _Claude Sonnet 4.6_ fordi den gir gode resultater, er relativt billig, samt at jeg er kjent med den. Ofte gir også _Auto_ gode resultater, men jeg anbefaler å låse ned en modell som du synes fungerer bra. Det er fordi modellene oppfører seg ulikt, slik at det blir en uvant opplevelse. Språket er allerede upresist, så en ønsker ikke flere variabler som kan ødelegge for godt resultat.
+
+Kort sagt; billigere og raskere modeller er dårligere, dyrere og tregere modeller er bedre.
+
+En artig forskjell på Codex og Claude er at dersom du merker tekst med instruks og skriver `.` som kommando, da vil Codex klage "fikk ingen instruks, bare et punktum", men Claude vil gjennomføre instruksen. Det er med andre ord forskjell på villigheten til å gjette på hva brukeren mener. Uten at jeg har erfaringer med Codex, vil jeg tro den gjetter mindre og spør oftere. Det kan gi gode resultat dersom du chatter mye og ikke ønsker at agenten skal dure av gårde i en retning du ikke ønsker.
 
 
 # Ting KI kan gjøre
