@@ -1,7 +1,7 @@
 # Start
 
 ## Github Codespaces
-Github Codespaces er en enkel måte å kjøre et prosjekt i en VM på Github, slik at vi slipper å bruke tid på oppsett. Vi skal koble til VM med [editoren VSCode](https://code.visualstudio.com), så det må du ha installert.
+Github Codespaces er en enkel måte å kjøre [editoren VSCode](https://code.visualstudio.com) direkte i nettleseren, slik at vi slipper å bruke tid på oppsett.
 
 Gjennomfør disse stegene:
 
@@ -12,8 +12,12 @@ Gjennomfør disse stegene:
    ![Lager en Codespace for repoet på ditt eget område](codespaces.png)
 4. Åpne opprettet codespace:
    ![Codespace åpent i nettleser](codespace.png)
-5. Trykk helt nede i venstre hjørne der det står _Codespaces: et navn_
-6. Velg _Open in VS Code Desktop_ i dialogen som kommer opp.
+
+### Lokal editor
+Du kan velge å fortsette i nettleser, eller du kan koble lokal instans av VSCode til VM som kjører i CodeSpaces:
+
+1. Trykk helt nede i venstre hjørne der det står _Codespaces: et navn_
+2. Velg _Open in VS Code Desktop_ i dialogen som kommer opp.
 
 ![åpner i lokal editor](vscode-desktop.png)
 
