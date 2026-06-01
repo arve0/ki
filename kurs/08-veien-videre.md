@@ -165,13 +165,15 @@ Dette kommer i mange farger og former, her er noen ressurser du kan sjekke ut:
 
 Samtidig er det viktig å ikke sette unaturlige begrensinger i hva en kan utforske. Derfor vil jeg anbefale at en bruker KI fritt en periode, før en gjør seg opp en mening om kostnaden svarer til verdien det skaper.
 
-Rent hardware-messig kan vi også regne på det, stemmer det at tokens er på billigsalg? I følge estimater og gjetning fra internett trenger Claude Sonnet 4.6 en NVIDIA DGX H100 med 640GB minne som koster omtrent 4,5 millioner kroner. Den kan generere opp til 80 tokens i sekundet, det vil si håndere en bruker om gangen. Gitt en nedbetalingstid på 2 år og perfekt 100% utnyttelse sitter vi da med en kostnad på omtrent 0,26 kroner / time.
+Rent hardware-messig kan vi også regne på det, stemmer det at tokens er på billigsalg? I følge estimater og gjetning fra internett trenger Claude Sonnet 4.6 en NVIDIA DGX H100 med 640GB minne som koster omtrent 4,5 millioner kroner. Den kan generere opp til 80 tokens i sekundet, det vil si håndere en bruker om gangen. Gitt en nedbetalingstid på 2 år og perfekt 100% utnyttelse sitter vi da med en kostnad på omtrent 256 kroner / time.
 
 ```
-4 500 000 kroner / (2 år x 365 dager/år x 24 timer/dag) ~ 0,26 kroner / time
+4 500 000 kroner / (2 år x 365 dager/år x 24 timer/dag) ~= 256 kroner / time
 ```
 
 Det er mye rimeligere enn et menneske, men helt klart en forenklet model. Eksempelvis har vi ikke tatt med treningskosten, hvor stor utnyttelse en klarer å oppnå på serverparken, kostnad for strøm, leie og vedlikehold.
+
+Uansett, det er ikke vanskelig å forestille seg at KI-eventyret kan bli ekstremt lønnsomt for aktørene som sitter på største del av markedet.
 
 
 # Kjøre modeller lokalt
