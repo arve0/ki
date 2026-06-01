@@ -38,13 +38,30 @@ else
   fi
 fi
 
-echo "⏳ Installerer rg og fd-find..."
-if sudo apt-get update && sudo apt-get install -y ripgrep fd-find &> "$root/.devcontainer/apt-install-logg"; then
-  sudo ln -s "$(which fdfind)" /usr/local/bin/fd
-  echo '✅ rg og fd-find er installert.'
+rg_ok=false
+fd_ok=false
+command -v rg &> /dev/null && rg_ok=true
+if command -v fd &> /dev/null || command -v fdfind &> /dev/null; then
+  fd_ok=true
+fi
+
+if [[ "$rg_ok" == true && "$fd_ok" == true ]]; then
+  echo '✅ rg og fd-find er allerede installert.'
+  # fd-find installerer ofte kommandoen som fdfind; lag en fd-symlink om den mangler.
+  if ! command -v fd &> /dev/null && command -v fdfind &> /dev/null; then
+    sudo ln -sf "$(which fdfind)" /usr/local/bin/fd
+  fi
 else
-  echo '❌  Feil ved installasjon av rg eller fd-find. Logg i .devcontainer/apt-install-logg'
-  failure=true
+  echo "⏳ Installerer rg og fd-find..."
+  if sudo apt-get update && sudo apt-get install -y ripgrep fd-find &> "$root/.devcontainer/apt-install-logg"; then
+    if ! command -v fd &> /dev/null && command -v fdfind &> /dev/null; then
+      sudo ln -sf "$(which fdfind)" /usr/local/bin/fd
+    fi
+    echo '✅ rg og fd-find er installert.'
+  else
+    echo '❌  Feil ved installasjon av rg eller fd-find. Logg i .devcontainer/apt-install-logg'
+    failure=true
+  fi
 fi
 
 echo "⏳ Bygger tidtaker og installerer avhengigheter..."
