@@ -34,7 +34,8 @@ Siden vi kjører oppgavene i Codespaces som er en VM på Github, må vi logge p�
 5. Logg inn.
 6. Lukk nettleseren.
 7. Verifiser at du har en auth.json med cookies.
-8. Kopier innholdet i filen og opprett en fil med samme navn i Codespaces.
+8. Kopier innholdet i filen,
+9. Opprett filen tidtaker/auth.json i Codespaces med innholdet.
 
 Merk: For å gjennomføre timeføringen kunne vi benyttet denne metoden for å finne riktige ting å trykke på, men vi skal heller la agenten finne ut av det selv.
 
