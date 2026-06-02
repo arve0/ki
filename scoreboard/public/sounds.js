@@ -35,12 +35,10 @@ function playPowerUp() {
 
   // Resume if suspended (e.g. page was backgrounded).
   const play = () => {
-    // Rask stigende arpeggio: C5→E5→G5→C6
+    // Super Mario mynt-lyd: rask "ping pong" (B5 → E6)
     const notes = [
-      { freq: 523.25, dur: 0.05 },  // C5
-      { freq: 659.25, dur: 0.05 },  // E5
-      { freq: 783.99, dur: 0.05 },  // G5
-      { freq: 1046.50, dur: 0.12 }, // C6 (ring ut)
+      { freq: 987.77, dur: 0.08 },  // B5 (ping)
+      { freq: 1318.51, dur: 0.18 }, // E6 (pong, ringer ut)
     ];
     const gap = 0.01;
 
@@ -48,7 +46,7 @@ function playPowerUp() {
     notes.forEach(({ freq, dur }) => {
 
       const osc = ctx.createOscillator();
-      osc.type = 'square';
+      osc.type = 'triangle';
       osc.frequency.setValueAtTime(freq, t);
 
       const gain = ctx.createGain();
