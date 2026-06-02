@@ -351,6 +351,15 @@
     function connectSSE() {
       const es = new EventSource('/events');
 
+      es.addEventListener('fork', e => {
+        const { login, avatarUrl } = JSON.parse(e.data);
+        if (!participants[login]) {
+          participants[login] = { login, avatarUrl, completedModules: [], lastChecked: new Date().toISOString() };
+          updateCard(participants[login]);
+        }
+        try { playNewFork(); } catch {}
+      });
+
       es.addEventListener('progress', e => {
         const { login, module } = JSON.parse(e.data);
         if (participants[login]) {

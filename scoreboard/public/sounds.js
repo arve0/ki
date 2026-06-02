@@ -30,6 +30,46 @@ function unlockAudio() {
 document.addEventListener('click', unlockAudio);
 document.addEventListener('keydown', unlockAudio);
 
+function playNewFork() {
+  const ctx = getAudioContext();
+
+  const play = () => {
+    // Enkel «dun-dun» / fanfare-intro: to rolige toner ned-opp (G4 → C5)
+    const notes = [
+      { freq: 392.00, dur: 0.10 }, // G4
+      { freq: 523.25, dur: 0.20 }, // C5 (ringer ut)
+    ];
+    const gap = 0.02;
+
+    let t = ctx.currentTime;
+    notes.forEach(({ freq, dur }) => {
+      const osc = ctx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, t);
+
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0, t);
+      gain.gain.linearRampToValueAtTime(0.25, t + 0.01);
+      gain.gain.setValueAtTime(0.25, t + dur * 0.6);
+      gain.gain.linearRampToValueAtTime(0, t + dur);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start(t);
+      osc.stop(t + dur);
+
+      t += dur + gap;
+    });
+  };
+
+  if (ctx.state === 'suspended') {
+    ctx.resume().then(play);
+  } else {
+    play();
+  }
+}
+
 function playPowerUp() {
   const ctx = getAudioContext();
 

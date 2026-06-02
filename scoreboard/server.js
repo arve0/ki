@@ -18,7 +18,7 @@ const worktreesDir = path.join(__dirname, 'worktrees');
 
 // ── State ────────────────────────────────────────────────────────────────────
 
-/** @type {{ participants: Record<string, { login: string, avatarUrl: string, completedModules: number[], lastChecked: string }> }} */
+/** @type {{ participants: Record<string, { login: string, avatarUrl: string, repoName: string, completedModules: number[], lastChecked: string }> }} */
 const state = { participants: {} };
 
 /** Runtime-excluded logins (in addition to EXCLUDED_USERS). Persists in memory only. */
@@ -59,21 +59,29 @@ function hasRemote(login) {
   }
 }
 
-function initWorktree(login) {
+function setRemoteUrl(login, repoName) {
+  const url = `https://github.com/${login}/${repoName}.git`;
+  if (hasRemote(login)) {
+    git(`remote set-url ${login} ${url}`);
+  } else {
+    git(`remote add ${login} ${url}`);
+  }
+}
+
+function initWorktree(login, repoName = 'ki') {
   const wtDir = path.join(worktreesDir, login);
+  setRemoteUrl(login, repoName);
   if (!fs.existsSync(wtDir)) {
-    if (!hasRemote(login)) {
-      git(`remote add ${login} https://github.com/${login}/ki.git`);
-    }
     git(`fetch ${login} --depth=50`);
     git(`worktree add scoreboard/worktrees/${login} ${login}/main`);
     console.log(`[init] worktree created for ${login}`);
   } else {
-    syncWorktree(login);
+    syncWorktree(login, repoName);
   }
 }
 
-function syncWorktree(login) {
+function syncWorktree(login, repoName) {
+  if (repoName) setRemoteUrl(login, repoName);
   git(`fetch ${login} --depth=50`);
   gitInWorktree(login, `reset --hard ${login}/main`);
 }
@@ -213,7 +221,7 @@ function fetchForks() {
     throw new Error(`GitHub API error: ${JSON.stringify(forks)}`);
   }
   return forks
-    .map(f => ({ login: f.owner.login, avatar_url: f.owner.avatar_url }))
+    .map(f => ({ login: f.owner.login, avatar_url: f.owner.avatar_url, repo_name: f.name }))
     .filter(f => !EXCLUDED_USERS.includes(f.login));
 }
 
@@ -233,12 +241,15 @@ async function mainLoop() {
             state.participants[login] = {
               login,
               avatarUrl: avatar_url,
+              repoName: fork.repo_name,
               completedModules: [],
               lastChecked: new Date().toISOString(),
             };
-            initWorktree(login);
+            initWorktree(login, fork.repo_name);
+            console.log(`[fork] new participant: ${login}`);
+            broadcast('fork', { login, avatarUrl: avatar_url });
           } else {
-            syncWorktree(login);
+            syncWorktree(login, state.participants[login].repoName);
           }
         } catch (err) {
           console.warn(`[warn] ${login}: ${err.message}`);
@@ -345,7 +356,7 @@ const server = http.createServer((req, res) => {
             completedModules: [],
             lastChecked: new Date().toISOString(),
           };
-          initWorktree(login);
+          initWorktree(login, fork.repo_name);
         }
       }
       if (state.participants[login]) {
@@ -387,5 +398,6 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, () => {
   console.log(`Scoreboard running at http://localhost:${PORT}`);
-  mainLoop();
+  console.log('[init] Venter 10 sekunder før fork-polling starter…');
+  setTimeout(mainLoop, 3_000);
 });
